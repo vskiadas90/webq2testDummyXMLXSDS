@@ -2248,7 +2248,6 @@
                  <tr>
 						<th>
 							
-						Amount
 
 						</th>
 						<xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
@@ -2294,7 +2293,61 @@
 				</xsl:for-each>
 
                   
+              <!--2App Start -->
+                <tr>
+						<th>
+							<span>2App : </span>
+
+							<xsl:call-template name="getLabel">
+								<xsl:with-param name="labelName" select="'tr-02app-desc'"/>
+							</xsl:call-template>
+							Totals
+						</th>
+                      <xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
+							<td class="total">
+								<xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02App/totalAmountForRow"/></xsl:call-template>
+							</td>
+						</xsl:for-each>
+						
+					 </tr>
                   
+                  <xsl:variable name="gases" select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]" />
+                 
+               
+    				
+			 <xsl:for-each select="../tr_02A_Countries/*">
+                        <xsl:variable name="countryId" select="CountryId" />
+                 <tr> 
+                        <td>
+						  <xsl:call-template name="formatValue"><xsl:with-param name="num"  
+                            select="CountryName"/></xsl:call-template>
+                            
+                            </td>
+                  
+                        <xsl:for-each select="$gases">
+                          <xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
+						   <xsl:if test="$isHfc = true()">
+                                <td  class="num_cell">
+                            
+                                                                               
+                            <xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02App/CountrySpecific/Country[CountryId = $countryId]/Amount"/></xsl:call-template>
+								</td>
+                           </xsl:if>
+                           <xsl:if test="$isHfc != true()">
+                                 <td  class="num_cell">
+								</td>
+                           </xsl:if>
+						</xsl:for-each>
+                    
+                
+                    <!-- -->
+                </tr>
+                        
+				</xsl:for-each>
+
+                    
+                  
+              <!--2App End -->
                   
                   
                   
@@ -2316,6 +2369,178 @@
 							</td>
 						</xsl:for-each>
 					</tr>
+                  
+           
+              <!--2C Start -->
+                <tr>
+						<th>
+							<span>2C : </span>
+
+							<xsl:call-template name="getLabel">
+								<xsl:with-param name="labelName" select="'tr-02C-desc'"/>
+							</xsl:call-template>
+							Totals
+						</th>
+                      <xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
+							<td class="total">
+								<xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02C/totalAmountForRow"/></xsl:call-template>
+							</td>
+						</xsl:for-each>
+						
+					 </tr>
+                  
+                  <xsl:variable name="gases" select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]" />
+                 
+               
+    				
+			 <xsl:for-each select="../tr_02A_Countries/*">
+                        <xsl:variable name="countryId" select="CountryId" />
+                 <tr> 
+                        <td>
+						  <xsl:call-template name="formatValue"><xsl:with-param name="num"  
+                            select="CountryName"/></xsl:call-template>
+                            
+                            </td>
+                  
+                        <xsl:for-each select="$gases">
+                          <xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
+						   <xsl:if test="$isHfc = true()">
+                                <td  class="num_cell">
+                            
+                                                                               
+                            <xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02C/CountrySpecific/Country[CountryId = $countryId]/Amount"/></xsl:call-template>
+								</td>
+                           </xsl:if>
+                           <xsl:if test="$isHfc != true()">
+                                 <td  class="num_cell">
+								</td>
+                           </xsl:if>
+						</xsl:for-each>
+                    
+                
+                    <!-- -->
+                </tr>
+                        
+				</xsl:for-each>
+
+                    
+                  
+              <!--2C End -->           
+                  
+                      
+              <!--2D Start -->
+                <tr>
+						<th>
+							<span>2D : </span>
+
+							<xsl:call-template name="getLabel">
+								<xsl:with-param name="labelName" select="'tr-02app-desc'"/>
+							</xsl:call-template>
+							Totals
+						</th>
+                      <xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
+							<td class="total">
+								<xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02D/totalAmountForRow"/></xsl:call-template>
+							</td>
+						</xsl:for-each>
+						
+					 </tr>
+                  
+                  <xsl:variable name="gases" select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]" />
+                 
+               
+    				
+			 <xsl:for-each select="../tr_02A_Countries/*">
+                        <xsl:variable name="countryId" select="CountryId" />
+                 <tr> 
+                        <td>
+						  <xsl:call-template name="formatValue"><xsl:with-param name="num"  
+                            select="CountryName"/></xsl:call-template>
+                            
+                            </td>
+                  
+                        <xsl:for-each select="$gases">
+                          <xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
+						   <xsl:if test="$isHfc = true()">
+                                <td  class="num_cell">
+                            
+                                                                               
+                            <xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02D/CountrySpecific/Country[CountryId = $countryId]/Amount"/></xsl:call-template>
+								</td>
+                           </xsl:if>
+                           <xsl:if test="$isHfc != true()">
+                                 <td  class="num_cell">
+								</td>
+                           </xsl:if>
+						</xsl:for-each>
+                    
+                
+                    <!-- -->
+                </tr>
+                        
+				</xsl:for-each>
+
+                    
+                  
+              <!--2D End -->
+                  
+                      
+              <!--2E Start -->
+                <tr>
+						<th>
+							<span>2E : </span>
+
+							<xsl:call-template name="getLabel">
+								<xsl:with-param name="labelName" select="'tr-02app-desc'"/>
+							</xsl:call-template>
+							Totals
+						</th>
+                      <xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
+							<td class="total">
+								<xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02E/totalAmountForRow"/></xsl:call-template>
+							</td>
+						</xsl:for-each>
+						
+					 </tr>
+                  
+                  <xsl:variable name="gases" select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]" />
+                 
+               
+    				
+			 <xsl:for-each select="../tr_02A_Countries/*">
+                        <xsl:variable name="countryId" select="CountryId" />
+                 <tr> 
+                        <td>
+						  <xsl:call-template name="formatValue"><xsl:with-param name="num"  
+                            select="CountryName"/></xsl:call-template>
+                            
+                            </td>
+                  
+                        <xsl:for-each select="$gases">
+                          <xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
+						   <xsl:if test="$isHfc = true()">
+                                <td  class="num_cell">
+                            
+                                                                               
+                            <xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02E/CountrySpecific/Country[CountryId = $countryId]/Amount"/></xsl:call-template>
+								</td>
+                           </xsl:if>
+                           <xsl:if test="$isHfc != true()">
+                                 <td  class="num_cell">
+								</td>
+                           </xsl:if>
+						</xsl:for-each>
+                    
+                
+                    <!-- -->
+                </tr>
+                        
+				</xsl:for-each>
+
+                    
+                  
+              <!--2E End -->
+                  
 				</tbody>
 			</table>
 		</xsl:if>
