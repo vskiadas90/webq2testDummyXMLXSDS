@@ -1,6 +1,6 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema"
 				xmlns:fgas="http://eionet.europa.eu/dataflows/fgas"
 				xmlns:functx="http://www.functx.com"
 				version="2.0">
@@ -2234,81 +2234,70 @@
 							<xsl:call-template name="getLabel">
 								<xsl:with-param name="labelName" select="'tr-02a-desc'"/>
 							</xsl:call-template>
+							Totals
+						</th>
+                      <xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
+							<td class="total">
+								<xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02A/totalAmountForRow"/></xsl:call-template>
+							</td>
+						</xsl:for-each>
+						
+					 </tr>
+                  
+                  <xsl:variable name="gases" select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]" />
+                 <tr>
+						<th>
+							
+						Amount
 
 						</th>
 						<xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
 							<td class="num_cell">
-                    
-                         <xsl:if test="tr_02A/CountrySpecific/Country != ''">
-                         <xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                                            select="tr_02A/CountrySpecific/Country/CountryId"/></xsl:call-template>
-                                 <xsl:for-each select="tr_02A/CountrySpecific/Country">
-                                      <xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                                            select="CountryId"/></xsl:call-template>
-							         	<xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                                                 select="Amount"/></xsl:call-template>
-                                 </xsl:for-each>
-                         </xsl:if>
-					
-                              
-                                                 <xsl:if test="tr_02A/CountrySpecific/Country = ''">
-								<xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                            select="tr_02A/Amount"/></xsl:call-template>
-                                                 </xsl:if>
-							</td>
+                              <xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
+							<xsl:if test="$isHfc != true()">
+								<xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02A/Amount"/></xsl:call-template>
+                              </xsl:if>
+                              </td>
 						</xsl:for-each>
 					</tr>
-                    
+               
+                  <xsl:variable name="gases" select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]" />
     				
-					<xsl:for-each select="/FGasesReporting/F1_S1_4_ProdImpExp/tr_02A_Countries">
-                        <xsl:variable name="parent-position" select="position()" />
-                        <tr>
-                        <th>
+			 <xsl:for-each select="../tr_02A_Countries/*">
+                        <xsl:variable name="countryId" select="CountryId" />
+                 <tr> 
+                        <td>
 						  <xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                            select="Country/CountryName"/></xsl:call-template>
+                            select="CountryName"/></xsl:call-template>
                             
-                            </th>
-                        <!--xsl:for-each select=".|following-sibling::Gas">
-                        <td class="num_cell">
-                       
-                        <xsl:value-of select="GasCode"/>
-                            <xsl:if test="tr_02A/CountrySpecific[$parent-position]/Country != ''">
-                         <xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                                            select="tr_02A/CountrySpecific[$parent-position]/Country/Amount"/>
-                                            
-                           </xsl:call-template>
-                                 
-                         </xsl:if>
-                        </td>
-                            </xsl:for-each-->
+                            </td>
+                  
+                        <xsl:for-each select="$gases">
+                          <xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
+						   <xsl:if test="$isHfc = true()">
+                                <td  class="num_cell">
                             
-                            <!-- -->
+                                                                               
+                            <xsl:call-template name="formatValue"><xsl:with-param name="num" select="tr_02A/CountrySpecific/Country[CountryId = $countryId]/Amount"/></xsl:call-template>
+								</td>
+                           </xsl:if>
+                           <xsl:if test="$isHfc != true()">
+                                 <td  class="num_cell">
+								</td>
+                           </xsl:if>
+						</xsl:for-each>
                     
-                    <xsl:for-each select=".|following-sibling::Gas[not(position()>($pagingLimit - 1))]">
-        					<xsl:variable name="isHfc"><xsl:value-of select="fgas:isHfcBased(current()/GasCode, /FGasesReporting)" /></xsl:variable>
-							<xsl:if test="$isHfc = true()">
-								<!--th class="textCenter sidePadding">
-									<xsl:call-template name="getLabel">
-										<xsl:with-param name="labelName" select="'unit'"/>
-										<xsl:with-param name="labelPath" select="'common'"/>
-									</xsl:call-template>
-								</th-->
-                                <td class="num_cell">
-                                     <xsl:call-template name="formatValue"><xsl:with-param name="num"  
-                                            select="tr_02A/CountrySpecific[$parent-position]/Country/Amount"/>
-                                                                       </xsl:call-template>
-
-                                </td>
-							</xsl:if>
-						</xsl:for-each>
-                    <!-- -->
-                        </tr>
-                        
-						</xsl:for-each>
-					
                 
-                    
-                    
+                    <!-- -->
+                </tr>
+                        
+				</xsl:for-each>
+
+                  
+                  
+                  
+                  
+                  
 					<tr>
 						<th>
 							<span>2B : </span>
